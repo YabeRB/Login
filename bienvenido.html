@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenido</title>
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin-top: 100px;
+        background: linear-gradient(to right, #4edb02, #fff025);
+    }
+    h1 {
+        color: #333;
+        background: white;
+        display: inline-block;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+    </style>
+</head>
+<body>
+    <h1 id="mensaje"></h1>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const nombre = params.get("nombre") || "Usuario";
+        document.getElementById("mensaje").textContent = `Bienvenido ${nombre}`;
+    </script>
+</body>
+</html>
