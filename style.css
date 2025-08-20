@@ -102,3 +102,49 @@ button:hover {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
 }
+
+.profile-card {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    text-align: center;
+    width: 320px;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.profile-card img {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    margin-bottom: 1rem;
+}
+
+.profile-card h2 {
+    margin: 10px 0;
+    color: #333;
+    font-size: 18px;
+    max-width: 250px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.profile-card button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background: red;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.profile-card button:hover {
+    background: darkred;
+}

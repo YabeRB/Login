@@ -18,24 +18,66 @@ const auth = firebase.auth();
 const googleProvider = new firebase.auth.GoogleAuthProvider();
 const githubProvider = new firebase.auth.GithubAuthProvider();
 
-// Login con Google
-document.querySelector(".google").addEventListener("click", (e) => {
+//login con correo mas contraseña
+document.getElementById("login-form").addEventListener("submit", (e) => {
     e.preventDefault();
-    auth.signInWithPopup(googleProvider)
+    const email = e.target.querySelector('input[type="email"]').value;
+    const password = e.target.querySelector('input[type="password"]').value;
+
+    auth.signInWithEmailAndPassword(email, password)
         .then(result => {
-            const nombre = result.user.displayName || "Usuario";
-            window.location.href = `bienvenido.html?nombre=${encodeURIComponent(nombre)}`;
+            redirigirUsuario(result.user);
         })
         .catch(err => alert(err.message));
 });
 
-// Login con GitHub
+//registrar con correo
+document.getElementById("register-form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const email = e.target.querySelector('input[type="email"]').value;
+    const password = e.target.querySelector('input[type="password"]').value;
+
+    auth.createUserWithEmailAndPassword(email, password)
+        .then(result => {
+            redirigirUsuario(result.user);
+        })
+        .catch(err => alert(err.message));
+});
+
+//login con google
+document.querySelector(".google").addEventListener("click", (e) => {
+    e.preventDefault();
+    auth.signInWithPopup(googleProvider)
+        .then(result => {
+            redirigirUsuario(result.user);
+        })
+        .catch(err => alert(err.message));
+});
+
+//login con GitHub
 document.querySelector(".github").addEventListener("click", (e) => {
     e.preventDefault();
     auth.signInWithPopup(githubProvider)
         .then(result => {
-            const nombre = result.user.displayName || "Usuario";
-            window.location.href = `bienvenido.html?nombre=${encodeURIComponent(nombre)}`;
+            const profile = result.additionalUserInfo?.profile;
+            const nombre = profile?.name || profile?.login || result.user.email || "Usuario";
+            const foto = result.user.photoURL || "https://www.w3schools.com/howto/img_avatar.png";
+            window.location.href = `bienvenido.html?nombre=${encodeURIComponent(nombre)}&foto=${encodeURIComponent(foto)}`;
         })
         .catch(err => alert(err.message));
+});
+
+//redireccionamiento
+function redirigirUsuario(user) {
+    const nombre = user.displayName || user.email || "Usuario";
+    const foto = user.photoURL || "https://www.w3schools.com/howto/img_avatar.png";
+    window.location.href = `bienvenido.html?nombre=${encodeURIComponent(nombre)}&foto=${encodeURIComponent(foto)}`;
+}
+
+auth.onAuthStateChanged(user => {
+    if (user) {
+        console.log("Usuario logueado:", user.email);
+    } else {
+        console.log("No hay usuario activo");
+    }
 });
