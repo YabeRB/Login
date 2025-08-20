@@ -16,7 +16,6 @@
     </div>
 
     <script>
-        // Config Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyBqYALkDu6bpXH9VpUPlxacW-RBFvRYouE",
             authDomain: "capuccino-24c78.firebaseapp.com",
@@ -26,7 +25,6 @@
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
 
-        // Obtener datos pasados por URL
         const params = new URLSearchParams(window.location.search);
         const nombre = params.get("nombre") || "Usuario";
         const foto = params.get("foto") || "https://www.w3schools.com/howto/img_avatar.png";
@@ -34,7 +32,6 @@
         document.getElementById("mensaje").textContent = `Bienvenido ${nombre}`;
         document.getElementById("avatar").src = foto;
 
-        // Botón de logout
         document.getElementById("logout").addEventListener("click", () => {
             auth.signOut().then(() => {
                 window.location.href = "index.html";
